@@ -1,16 +1,90 @@
-# React + Vite
+# Book My Show
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack movie ticket booking app with user authentication, movie browsing, seat selection, bookings, and admin movie management.
 
-Currently, two official plugins are available:
+Live: [https://bms.luqe.in](https://bms.luqe.in)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
 
-## React Compiler
+- Frontend: React, Vite, Tailwind CSS, React Router, Axios
+- Backend: Node.js, Express, PostgreSQL, JWT, Joi
+- Email: Resend API for verification and password reset emails
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- User signup, login, logout, and session refresh
+- Email verification and password reset links
+- Movie listing and movie details
+- Show seat availability and booking flow
+- My bookings page
+- Admin dashboard for movie management
+- Cookie-based auth support with CORS credentials
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Project Structure
+
+```txt
+.
+|-- bms-backend/    # Express API and PostgreSQL migrations
+|-- bms-frontend/   # React/Vite client
+`-- README.md
+```
+
+## Local Setup
+
+Install dependencies:
+
+```bash
+cd bms-backend
+npm install
+
+cd ../bms-frontend
+npm install
+```
+
+Create environment files:
+
+```bash
+cd bms-backend
+cp env_example.txt .env
+
+cd ../bms-frontend
+cp env_smaple_text .env
+```
+
+Update the copied `.env` files with your database URL, frontend URL, JWT secrets, Resend API key, and API URL.
+
+Run the backend:
+
+```bash
+cd bms-backend
+npm run dev
+```
+
+Run the frontend:
+
+```bash
+cd bms-frontend
+npm run dev
+```
+
+## Useful Commands
+
+```bash
+# Backend
+npm run migrate
+npm run dev
+npm start
+
+# Frontend
+npm run dev
+npm run lint
+npm run build
+```
+
+## Environment Notes
+
+Backend uses `FRONTEND_ORIGIN` for CORS and `FRONTEND_URL` for email links.
+
+Frontend uses `VITE_API_URL` to call the backend API.
+
+Real `.env` files and `node_modules` are ignored by Git.
