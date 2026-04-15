@@ -5,6 +5,8 @@ import authRoutes from "./module/auth/routes.js";
 import movieRoutes from "./module/movies/routes.js";
 import showRoutes from "./module/shows/routes.js";
 import bookingRoutes from "./module/bookings/routes.js";
+import db from "./common/config/db.js";
+
 const app = express()
 
 const allowedOrigins = (process.env.FRONTEND_ORIGIN || "http://localhost:5173")
@@ -30,7 +32,18 @@ const serverHandler = () => {
         optionsSuccessStatus: 204
     }));
 
-    app.get("/", async (req, res) => {
+    app.get("/", async (_, res) => {
+        try {
+            const client = await db.connect();
+            client.release();
+        }
+        catch (error) {
+            console.log("DB Connection Error:", error.message);
+            res.status(500).json({
+                success: false,
+                message: "Internal server error"
+            })
+        }
         res.status(200).json({
             success: true,
             message: "BMS backend is running"

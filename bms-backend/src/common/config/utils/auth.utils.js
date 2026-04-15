@@ -4,12 +4,28 @@ const REFRESH_TOKEN_COOKIE_NAME = "refreshToken";
 const ACCESS_TOKEN_COOKIE_MAX_AGE = 15 * 60 * 1000;
 const REFRESH_TOKEN_COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
 
+function isProduction() {
+    return process.env.NODE_ENV === "production";
+}
+
+function getCookieDomain() {
+    return process.env.COOKIE_DOMAIN?.trim() || undefined;
+}
+
 function getCookieBaseOptions() {
-    return {
+    const options = {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax"
+        secure: isProduction(),
+        sameSite: isProduction() ? "none" : "lax",
+        path: "/"
     };
+
+    const domain = getCookieDomain();
+    if (domain) {
+        options.domain = domain;
+    }
+
+    return options;
 }
 
 function buildCookieOptions(maxAge) {
