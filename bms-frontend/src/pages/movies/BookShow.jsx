@@ -63,8 +63,8 @@ export default function BookShow() {
         <div className="w-full h-1.5 md:h-2 bg-gradient-to-r from-transparent via-primary/50 to-transparent mt-3 mb-8 shadow-[0_0_15px_var(--primary)] rounded-[100%] mx-auto" style={{ maxWidth: '600px' }} />
       </div>
 
-      <div className="max-w-2xl mx-auto mb-8 px-2">
-        <div className="grid grid-cols-10 gap-1.5 sm:gap-2 justify-items-center">
+      <div className="max-w-2xl mx-auto mb-8 px-2 overflow-x-auto">
+        <div className="grid gap-1.5 sm:gap-2 justify-items-center" style={{ gridTemplateColumns: 'repeat(10, minmax(2.2rem, 1fr))', minWidth: '22rem' }}>
           {seats.map((seat) => {
             const isAvailable = seat.seat_status === "available";
             const isSelected = selectedSeat?.seatid === seat.seatid;
@@ -75,7 +75,7 @@ export default function BookShow() {
                 disabled={!isAvailable}
                 onClick={() => setSelectedSeat(seat)}
                 className={`
-                  w-full aspect-square max-w-[2.5rem] flex items-center justify-center text-[10px] sm:text-xs font-bold rounded-t-lg transition-all border-b-2 sm:border-b-4 relative
+                  w-full aspect-square flex items-center justify-center text-[10px] sm:text-xs font-bold rounded-t-lg transition-all border-b-2 sm:border-b-4 relative
                   ${!isAvailable ? 'bg-secondary text-muted-foreground border-secondary cursor-not-allowed opacity-40' : 
                     isSelected ? 'bg-primary text-primary-foreground border-primary shadow-lg scale-110 z-10' : 
                     'bg-card border-border hover:border-primary/50 hover:-translate-y-1'}
